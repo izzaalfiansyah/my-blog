@@ -32,6 +32,7 @@ async function handleLogin() {
 
       if (!!token) {
         Storage.setToken(token);
+        window.location.reload();
       }
     } catch (err) {
       notificationStore.alert(err as any);
