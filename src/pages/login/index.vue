@@ -1,16 +1,49 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import { emailRules, passwordRules } from "../../rules/login";
+import { useLoginMutation } from "../../graphql/mutation";
+import { VForm } from "vuetify/components";
+import { Storage } from "../../utils/storage";
 
 const showPassword = ref(false);
+const req = ref({
+  email: "",
+  password: "",
+});
+const formElement = ref<VForm>();
 
 function toggleShowPassword() {
   showPassword.value = !showPassword.value;
+}
+
+async function handleLogin() {
+  await formElement.value?.validate();
+  const isValid = formElement.value?.isValid;
+
+  if (isValid) {
+    try {
+      const { mutate } = useLoginMutation();
+      const res = await mutate(req.value);
+
+      const token = res?.data.login;
+
+      if (!!token) {
+        Storage.setToken(token);
+      }
+    } catch (err) {
+      alert(err);
+    }
+  }
 }
 </script>
 
 <template>
   <div class="min-h-screen flex items-center justify-center p-5">
-    <div class="w-420px max-w-full">
+    <v-form
+      @submit.prevent="handleLogin"
+      ref="formElement"
+      class="w-420px max-w-full"
+    >
       <div class="mb-10">
         <div class="text-2xl font-bold">Selamat Datang!</div>
         <div class="text-sm font-light">
@@ -19,20 +52,26 @@ function toggleShowPassword() {
       </div>
       <div>
         <v-text-field
+          type="email"
           color="primary"
           label="Email"
           placeholder="Masukkan Email"
+          v-model="req.email"
+          :rules="emailRules"
         ></v-text-field>
         <v-text-field
           color="primary"
           label="Password"
           placeholder="Masukkan Password"
           :type="showPassword ? 'text' : 'password'"
+          v-model="req.password"
+          :rules="passwordRules"
         >
           <template #append-inner>
             <button
               :class="showPassword ? 'i-mdi:eye' : 'i-mdi:eye-off'"
               @click="toggleShowPassword"
+              type="button"
             ></button>
           </template>
         </v-text-field>
@@ -40,6 +79,6 @@ function toggleShowPassword() {
       <v-btn class="mt-8" variant="flat" type="submit" color="primary" block
         >LOGIN</v-btn
       >
-    </div>
+    </v-form>
   </div>
 </template>
