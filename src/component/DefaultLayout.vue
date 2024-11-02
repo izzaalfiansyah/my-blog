@@ -1,15 +1,25 @@
 <script lang="ts" setup>
-import { useAuthStore } from "../stores/auth-store";
+import { useRoute } from "vue-router";
+import NavBar from "./NavBar.vue";
 
-const authStore = useAuthStore();
+const route = useRoute();
+
+const isLoginRoute = () => {
+  if (route.path == "/login") {
+    return true;
+  }
+
+  return false;
+};
 </script>
 
 <template>
-  <div
-    class="min-h-screen antialised text-base font-normal font-inter text-gray-700"
-  >
-    <template v-if="!!authStore.user">
-      <router-view></router-view>
+  <div class="antialised text-base font-normal font-inter text-gray-700">
+    <template v-if="!isLoginRoute()">
+      <NavBar></NavBar>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </template>
     <template v-else>
       <router-view></router-view>

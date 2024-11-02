@@ -54,7 +54,7 @@ async function handleLogin() {
           Silahkan login ke akunmu dan mulai penjelajahan.
         </div>
       </div>
-      <div>
+      <div class="space-y-2">
         <v-text-field
           type="email"
           color="primary"
@@ -80,7 +80,7 @@ async function handleLogin() {
           </template>
         </v-text-field>
       </div>
-      <v-btn class="mt-8" variant="flat" type="submit" color="primary" block
+      <v-btn class="mt-8" variant="tonal" type="submit" color="primary" block
         >LOGIN</v-btn
       >
     </v-form>
