@@ -4,6 +4,7 @@ import { emailRules, passwordRules } from "../../rules/login";
 import { useLoginMutation } from "../../graphql/mutation";
 import { VForm } from "vuetify/components";
 import { Storage } from "../../utils/storage";
+import { useNotificationStore } from "../../stores/notification-store";
 
 const showPassword = ref(false);
 const req = ref({
@@ -11,6 +12,8 @@ const req = ref({
   password: "",
 });
 const formElement = ref<VForm>();
+
+const notificationStore = useNotificationStore();
 
 function toggleShowPassword() {
   showPassword.value = !showPassword.value;
@@ -31,7 +34,7 @@ async function handleLogin() {
         Storage.setToken(token);
       }
     } catch (err) {
-      alert(err);
+      notificationStore.alert(err as any);
     }
   }
 }

@@ -6,7 +6,7 @@ export class Storage {
   }
 
   static async getToken() {
-    localStorage.getItem(TOKEN);
+    return localStorage.getItem(TOKEN);
   }
 
   static async removeToken() {
