@@ -26,7 +26,7 @@ onMounted(() => {
         router.replace("/");
       }
     }
-  }, 2000);
+  }, 1500);
 });
 </script>
 

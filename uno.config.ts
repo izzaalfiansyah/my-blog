@@ -16,4 +16,7 @@ export default defineConfig({
       },
     }),
   ],
+  shortcuts: {
+    ".v3-emoji-picker .v3-emojis": "text-xl",
+  },
 });

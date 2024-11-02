@@ -1,12 +1,14 @@
 <script lang="ts" setup>
+import { useRoute } from "vue-router";
 import { useAuthStore } from "../stores/auth-store";
 
 const authStore = useAuthStore();
+const route = useRoute();
 </script>
 
 <template>
   <div
-    class="sticky top-0 left-0 z-50 w-full border-b-solid border-1 border-gray-200"
+    class="sticky top-0 left-0 z-50 w-full border-b-solid border-1 border-gray-200 bg-white"
   >
     <v-container class="flex items-center justify-between h-18">
       <div class="text-xl font-semibold">
@@ -22,9 +24,13 @@ const authStore = useAuthStore();
         color="primary"
         role="router-link"
         to="/create"
-        v-if="authStore.user"
+        v-if="authStore.user && route.path != '/create'"
         >Buat Baru</v-btn
       >
+      <v-btn variant="text" color="primary">
+        <span class="i-mdi:upload-outline mr-3"></span>
+        Publish
+      </v-btn>
     </v-container>
   </div>
 </template>
