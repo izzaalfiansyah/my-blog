@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@iconify-json/mdi": "^1.2.1",
     "graphql": "^16.9.0",
     "pinia": "^2.2.5",
     "unocss": "^0.63.6",
+    "unplugin-vue-router": "^0.10.8",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
