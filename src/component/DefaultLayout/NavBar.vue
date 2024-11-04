@@ -21,23 +21,36 @@ const route = useRoute();
           <span class="mr-2">✍️</span>Tulisan
         </router-link>
       </div>
-      <v-btn
-        variant="text"
-        color="primary"
-        role="router-link"
-        to="/create"
-        v-if="authStore.user && route.path != '/create'"
-        >Buat Baru</v-btn
-      >
-      <v-btn
-        variant="text"
-        v-if="route.path == '/create'"
-        color="primary"
-        @click="postStore.save"
-      >
-        <span class="i-mdi:upload-outline mr-3"></span>
-        Publish
-      </v-btn>
+      <template v-if="!!authStore.user">
+        <v-btn
+          variant="text"
+          color="primary"
+          role="router-link"
+          to="/create"
+          v-if="route.path != '/create' && !route.params.slug"
+        >
+          <span class="i-mdi:pencil-outline mr-3"></span>
+          Baru
+        </v-btn>
+        <v-btn
+          variant="text"
+          v-if="route.path == '/create'"
+          color="primary"
+          @click="postStore.save"
+        >
+          <span class="i-mdi:upload-outline mr-3"></span>
+          Publish
+        </v-btn>
+        <v-btn
+          variant="text"
+          v-if="!!route.params.slug"
+          color="primary"
+          @click="postStore.update"
+        >
+          <span class="i-mdi:upload-outline mr-3"></span>
+          Edit
+        </v-btn>
+      </template>
     </v-container>
   </div>
 </template>

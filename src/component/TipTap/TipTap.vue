@@ -4,6 +4,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import StarterKit from "@tiptap/starter-kit";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import { useAuthStore } from "../../stores/auth-store";
+import { watch } from "vue";
 
 const props = defineProps(["modelValue"]);
 
@@ -23,6 +24,13 @@ const editor = useEditor({
   },
   editable: !!authStore.user,
 });
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    editor.value?.commands.setContent(val);
+  }
+);
 </script>
 
 <template>

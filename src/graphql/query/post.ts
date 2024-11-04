@@ -13,3 +13,23 @@ export const usePostsQuery = () =>
       }
     }
   `);
+
+export const usePostBySlugQuery = (variables: { slug: string }) =>
+  useQuery(
+    gql`
+      query getPost($slug: String!) {
+        postBySlug(slug: $slug) {
+          id
+          title
+          content
+          emoji
+          coverImageUrl
+          tags
+          createdPlace
+          createdAt
+          updatedAt
+        }
+      }
+    `,
+    variables
+  );
