@@ -14,6 +14,8 @@ export const useNotificationStore = defineStore("notification", {
   },
   actions: {
     alert(message: string, color: color | undefined = undefined) {
+      console.log(color);
+
       this.message = message;
       this.color = undefined;
       this.show = true;
