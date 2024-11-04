@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "../../stores/auth-store";
 import { usePostStore } from "../../stores/post-store";
 import { ref } from "vue";
@@ -7,8 +7,30 @@ import { ref } from "vue";
 const authStore = useAuthStore();
 const postStore = usePostStore();
 const route = useRoute();
+const router = useRouter();
 
 const showDialogDelete = ref(false);
+
+async function handleSavePost() {
+  const res = await postStore.save();
+
+  if (res) {
+    router.push("/");
+  }
+}
+
+async function handleDeletePost() {
+  const res = await postStore.delete();
+
+  if (res) {
+    router.push("/");
+    showDialogDelete.value = false;
+  }
+}
+
+async function handleUpdatePost() {
+  await postStore.update();
+}
 </script>
 
 <template>
@@ -48,13 +70,13 @@ const showDialogDelete = ref(false);
           variant="text"
           v-if="route.path == '/create'"
           color="primary"
-          @click="postStore.save"
+          @click="handleSavePost"
         >
           <span class="i-mdi:upload-outline"></span>
           <span class="lg:block hidden ml-3">Publish</span>
         </v-btn>
         <div v-if="!!route.params.slug" class="flex">
-          <v-btn variant="text" color="primary" @click="postStore.update">
+          <v-btn variant="text" color="primary" @click="handleUpdatePost">
             <span class="i-mdi:upload-outline"></span>
             <span class="lg:block hidden ml-3">Simpan</span>
           </v-btn>
@@ -74,15 +96,7 @@ const showDialogDelete = ref(false);
         >Anda yakin menghapus tulisan? Data akan dihapus permanen</v-card-text
       >
       <v-card-actions>
-        <v-btn
-          variant="text"
-          color="red"
-          @click="
-            () => {
-              postStore.delete();
-              showDialogDelete = false;
-            }
-          "
+        <v-btn variant="text" color="red" @click="handleDeletePost"
           >Hapus</v-btn
         >
       </v-card-actions>

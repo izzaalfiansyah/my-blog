@@ -5,7 +5,6 @@ import {
   useUpdatePostMutation,
 } from "../graphql/mutation";
 import { useNotificationStore } from "./notification-store";
-import { router } from "../plugins/router";
 
 export const usePostStore = defineStore("post", {
   state(): {
@@ -50,7 +49,7 @@ export const usePostStore = defineStore("post", {
         await this.reset();
         notificationStore.alert("tulisan berhasil dibuat", "success");
 
-        router.back();
+        return true;
       } catch (err) {
         notificationStore.alert(err as any);
       }
@@ -71,6 +70,8 @@ export const usePostStore = defineStore("post", {
         }
 
         notificationStore.alert("tulisan berhasil diedit", "success");
+
+        return true;
       } catch (err) {
         notificationStore.alert(err as any);
       }
@@ -88,7 +89,8 @@ export const usePostStore = defineStore("post", {
         }
 
         notificationStore.alert("tulisan berhasil dihapus", "success");
-        router.back();
+
+        return true;
       } catch (err) {
         notificationStore.alert(err as any);
       }

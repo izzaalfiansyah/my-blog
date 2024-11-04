@@ -45,7 +45,7 @@ function handleImageCoverChange() {
     </div>
   </div>
   <div class="text-4xl my-10">
-    <div class="mb-8 space-x-3" v-if="!!authStore.user">
+    <div class="mb-8 gap-x-2 gap-y-2 flex flex-wrap" v-if="!!authStore.user">
       <template v-if="!req.emoji">
         <v-btn variant="tonal" @click="showEmojiPicker = true"
           ><span class="i-mdi:emoticon-outline mr-3"></span> Emoji</v-btn
