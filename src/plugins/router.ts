@@ -5,3 +5,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+router.beforeEach(() => {
+  window.scrollTo(0, 0);
+});
