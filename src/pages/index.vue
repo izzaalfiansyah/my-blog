@@ -25,5 +25,12 @@ import PostList from "../component/Home/PostList.vue";
     </div>
   </div>
   <v-divider></v-divider>
-  <PostList></PostList>
+  <div class="my-20">
+    <div class="mb-10">
+      <div class="text-3xl font-semibold text-center">
+        Semua Tulisan Bisa Dibaca
+      </div>
+    </div>
+    <PostList></PostList>
+  </div>
 </template>

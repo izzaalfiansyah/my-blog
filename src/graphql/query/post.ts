@@ -21,6 +21,7 @@ export const usePostBySlugQuery = (variables: { slug: string }) =>
         postBySlug(slug: $slug) {
           id
           title
+          description
           content
           emoji
           coverImageUrl

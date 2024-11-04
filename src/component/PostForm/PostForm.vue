@@ -57,7 +57,7 @@ function handleImageCoverChange() {
     <div class="mb-3 text-8xl group flex items-end" v-if="req.emoji">
       <span
         class="cursor-pointer relative inline-block"
-        @click="showEmojiPicker = true"
+        @click="showEmojiPicker = !!authStore.user ? true : false"
       >
         {{ req.emoji }}
       </span>
@@ -76,15 +76,17 @@ function handleImageCoverChange() {
     <div class="space-y-0">
       <input
         type="text"
-        class="text-4xl font-bold outline-none w-full resize-none !mb-0"
+        class="text-3xl font-bold outline-none h-auto w-full resize-none !mb-0"
         v-model="req.title"
         placeholder="Masukkan Judul"
+        :readonly="!authStore.user"
       />
       <input
         type="text"
         placeholder="Berikan deskripsi mengenai tulisanmu...."
-        class="text-base w-full font-normal outline-none text-gray-500"
+        class="text-lg w-full font-normal outline-none text-gray-500"
         v-model="req.description"
+        :readonly="!authStore.user"
       />
     </div>
   </div>
