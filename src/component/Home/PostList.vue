@@ -1,16 +1,20 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { usePostsQuery } from "../../graphql/query";
 import { Post } from "../../type/post";
 import { dateFormat } from "../../utils/dates";
 
 let posts = ref<Post[]>([]);
-const { onResult, loading } = usePostsQuery();
+const { onResult, loading, refetch } = usePostsQuery();
 
 onResult(({ data }) => {
   if (data?.posts) {
     posts.value = data.posts;
   }
+});
+
+onMounted(async () => {
+  await refetch();
 });
 </script>
 

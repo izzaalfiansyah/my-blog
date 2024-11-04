@@ -12,8 +12,8 @@ import PostList from "../component/Home/PostList.vue";
         <span class="lg:text-5xl text-3xl mb-5">🌊</span>
       </h2>
       <p>
-        Jika kau bertanya, aku orang yang perfeksionis tapi insecure berlebihan.
-        Dan aku ingin menguasai dunia!
+        Jika kau bertanya, aku orang yang perfeksionis tapi tetap menerima semua
+        apa adanya. Dan aku ingin menguasai dunia!
       </p>
     </div>
     <div class="order-first lg:!order-last">

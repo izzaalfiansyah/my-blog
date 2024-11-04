@@ -84,22 +84,30 @@ function handleImageCoverChange() {
         <span class="i-mdi:delete-outline"></span>
       </v-btn>
     </div>
-    <div class="space-y-0">
+    <div class="flex flex-col" v-if="!!authStore.user">
       <input
         type="text"
         class="text-3xl font-bold outline-none h-auto w-full resize-none !mb-0"
         v-model="req.title"
         placeholder="Masukkan Judul"
-        :readonly="!authStore.user"
       />
       <input
         type="text"
         placeholder="Berikan deskripsi mengenai tulisanmu...."
         class="text-lg w-full font-normal outline-none text-gray-500"
         v-model="req.description"
-        :readonly="!authStore.user"
       />
     </div>
+    <template v-else>
+      <div
+        class="text-3xl font-bold outline-none h-auto w-full resize-none !mb-0"
+      >
+        {{ req.title }}
+      </div>
+      <div class="text-lg w-full font-normal outline-none text-gray-500">
+        {{ req.description }}
+      </div>
+    </template>
   </div>
   <TipTap v-model="req.content"></TipTap>
 

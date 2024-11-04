@@ -2,10 +2,13 @@
 import { useRoute } from "vue-router";
 import { useAuthStore } from "../../stores/auth-store";
 import { usePostStore } from "../../stores/post-store";
+import { ref } from "vue";
 
 const authStore = useAuthStore();
 const postStore = usePostStore();
 const route = useRoute();
+
+const showDialogDelete = ref(false);
 </script>
 
 <template>
@@ -38,8 +41,8 @@ const route = useRoute();
           to="/create"
           v-if="route.path != '/create' && !route.params.slug"
         >
-          <span class="i-mdi:pencil-outline mr-3"></span>
-          Baru
+          <span class="i-mdi:pencil-outline"></span>
+          <span class="lg:block hidden ml-3">Baru</span>
         </v-btn>
         <v-btn
           variant="text"
@@ -47,20 +50,42 @@ const route = useRoute();
           color="primary"
           @click="postStore.save"
         >
-          <span class="i-mdi:upload-outline mr-3"></span>
-          Publish
+          <span class="i-mdi:upload-outline"></span>
+          <span class="lg:block hidden ml-3">Publish</span>
         </v-btn>
-        <div v-if="!!route.params.slug">
+        <div v-if="!!route.params.slug" class="flex">
           <v-btn variant="text" color="primary" @click="postStore.update">
-            <span class="i-mdi:upload-outline mr-3"></span>
-            Simpan
+            <span class="i-mdi:upload-outline"></span>
+            <span class="lg:block hidden ml-3">Simpan</span>
           </v-btn>
-          <v-btn variant="text" color="red" @click="postStore.delete">
-            <span class="i-mdi:trash-outline mr-3"></span>
-            Hapus
+          <v-btn variant="text" color="red" @click="showDialogDelete = true">
+            <span class="i-mdi:trash-outline"></span>
+            <span class="lg:block hidden ml-3">Hapus</span>
           </v-btn>
         </div>
       </template>
     </v-container>
   </div>
+
+  <v-dialog max-width="600px" v-model="showDialogDelete">
+    <v-card>
+      <v-card-title>Hapus Tulisan</v-card-title>
+      <v-card-text
+        >Anda yakin menghapus tulisan? Data akan dihapus permanen</v-card-text
+      >
+      <v-card-actions>
+        <v-btn
+          variant="text"
+          color="red"
+          @click="
+            () => {
+              postStore.delete();
+              showDialogDelete = false;
+            }
+          "
+          >Hapus</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
