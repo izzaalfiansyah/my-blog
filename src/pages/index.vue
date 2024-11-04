@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import PostList from "../component/Home/PostList.vue";
+</script>
+
 <template>
   <div
     class="min-h-80vh flex items-center lg:!justify-between gap-5 justify-center lg:flex-row flex-col"
@@ -20,4 +24,6 @@
       />
     </div>
   </div>
+  <v-divider></v-divider>
+  <PostList></PostList>
 </template>

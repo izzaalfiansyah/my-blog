@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import TipTap from "../../component/TipTap";
+import TipTap from "../component/TipTap";
 import VEmojiPicker, { EmojiExt } from "vue3-emoji-picker";
-import { useAuthStore } from "../../stores/auth-store";
-import { usePostStore } from "../../stores/post-store";
+import { useAuthStore } from "../stores/auth-store";
+import { usePostStore } from "../stores/post-store";
 
 const authStore = useAuthStore();
 const postStore = usePostStore();

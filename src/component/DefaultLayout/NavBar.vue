@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { useRoute } from "vue-router";
-import { useAuthStore } from "../stores/auth-store";
+import { useAuthStore } from "../../stores/auth-store";
+import { usePostStore } from "../../stores/post-store";
 
 const authStore = useAuthStore();
+const postStore = usePostStore();
 const route = useRoute();
 </script>
 
@@ -27,7 +29,12 @@ const route = useRoute();
         v-if="authStore.user && route.path != '/create'"
         >Buat Baru</v-btn
       >
-      <v-btn variant="text" color="primary">
+      <v-btn
+        variant="text"
+        v-if="route.path == '/create'"
+        color="primary"
+        @click="postStore.save"
+      >
         <span class="i-mdi:upload-outline mr-3"></span>
         Publish
       </v-btn>
