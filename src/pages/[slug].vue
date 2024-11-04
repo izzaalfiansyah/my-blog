@@ -42,7 +42,7 @@ onResult(({ data }) => {
 </script>
 
 <template>
-  <div v-if="isLoaded" class="mb-40">
+  <div v-if="isLoaded" class="mb-20 min-h-70vh">
     <PostForm></PostForm>
     <div class="my-10 text-sm text-gray-400">
       {{ dateFormat(createdAt) }}, {{ createdPlace }}
