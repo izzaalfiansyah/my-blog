@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import {
   useCreatePostMutation,
+  useDeletePostMutation,
   useUpdatePostMutation,
 } from "../graphql/mutation";
 import { useNotificationStore } from "./notification-store";
@@ -15,6 +16,7 @@ export const usePostStore = defineStore("post", {
       emoji?: string;
       coverImageUrl?: string;
       content: string;
+      tags: string[];
     };
   } {
     return {
@@ -22,6 +24,7 @@ export const usePostStore = defineStore("post", {
         title: "",
         description: "",
         content: "",
+        tags: [],
       },
     };
   },
@@ -31,6 +34,7 @@ export const usePostStore = defineStore("post", {
         title: "",
         description: "",
         content: "",
+        tags: [],
       };
     },
     async save() {
@@ -68,6 +72,23 @@ export const usePostStore = defineStore("post", {
         }
 
         notificationStore.alert("tulisan berhasil diedit", "success");
+      } catch (err) {
+        notificationStore.alert(err as any);
+      }
+    },
+    async delete() {
+      const notificationStore = useNotificationStore();
+      try {
+        const { mutate } = useDeletePostMutation();
+        const res = await mutate({
+          id: this.req.id!,
+        });
+
+        if (!res?.data.deletePost) {
+          throw "terjadi kesalahan";
+        }
+
+        notificationStore.alert("tulisan berhasil dihapus", "success");
       } catch (err) {
         notificationStore.alert(err as any);
       }

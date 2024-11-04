@@ -6,6 +6,7 @@ export const usePostsQuery = () =>
     query getPosts {
       posts {
         title
+        emoji
         slug
         description
         createdAt

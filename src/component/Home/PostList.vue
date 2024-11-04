@@ -26,7 +26,7 @@ onResult(({ data }) => {
     >
       <div>
         <div class="text-lg font-semibold">
-          {{ post.title }}
+          {{ post.title }} {{ post.emoji }}
         </div>
         <div class="text-gray-500 text-sm mb-1">{{ post.description }}</div>
       </div>

@@ -12,7 +12,7 @@ interface CreateVariables {
 }
 
 interface UpdateVariables extends CreateVariables {
-  id: number;
+  id: any;
 }
 
 export const useCreatePostMutation = () =>
@@ -65,6 +65,15 @@ export const useUpdatePostMutation = () =>
             isPublished: $isPublished
           }
         )
+      }
+    `
+  );
+
+export const useDeletePostMutation = () =>
+  useMutation<any, { id: any }>(
+    gql`
+      mutation updatePost($id: String!) {
+        deletePost(id: $id)
       }
     `
   );

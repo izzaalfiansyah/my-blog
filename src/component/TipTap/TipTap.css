@@ -1,5 +1,13 @@
+.ProseMirror > *:not(:first-child) {
+  margin-top: 14px;
+}
+
 .ProseMirror:focus {
   outline: none;
+}
+
+.ProseMirror ul {
+  margin-left: 20px;
 }
 
 .tiptap p.is-empty::before {

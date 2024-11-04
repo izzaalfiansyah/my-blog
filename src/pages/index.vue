@@ -9,7 +9,7 @@ import PostList from "../component/Home/PostList.vue";
     <div class="lg:w-1/2 lg:!text-left text-center">
       <h2 class="lg:text-3xl text-2xl font-semibold mb-3">
         Hai, Saya Alfiansyah!
-        <span class="lg:text-5xl text-3xl mb-5">🔥</span>
+        <span class="lg:text-5xl text-3xl mb-5">🌊</span>
       </h2>
       <p>
         Jika kau bertanya, aku orang yang perfeksionis tapi insecure berlebihan.

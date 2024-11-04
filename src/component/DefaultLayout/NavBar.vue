@@ -50,15 +50,16 @@ const route = useRoute();
           <span class="i-mdi:upload-outline mr-3"></span>
           Publish
         </v-btn>
-        <v-btn
-          variant="text"
-          v-if="!!route.params.slug"
-          color="primary"
-          @click="postStore.update"
-        >
-          <span class="i-mdi:upload-outline mr-3"></span>
-          Edit
-        </v-btn>
+        <div v-if="!!route.params.slug">
+          <v-btn variant="text" color="primary" @click="postStore.update">
+            <span class="i-mdi:upload-outline mr-3"></span>
+            Simpan
+          </v-btn>
+          <v-btn variant="text" color="red" @click="postStore.delete">
+            <span class="i-mdi:trash-outline mr-3"></span>
+            Hapus
+          </v-btn>
+        </div>
       </template>
     </v-container>
   </div>

@@ -8,10 +8,13 @@ import { usePostStore } from "../../stores/post-store";
 const authStore = useAuthStore();
 const postStore = usePostStore();
 
+const searchTag = ref("");
+
 const req = postStore.$state.req;
 
 const showEmojiPicker = ref(false);
 const showCoverImagePicker = ref(false);
+const showTagsDialog = ref(false);
 const coverImageUrl = ref("");
 
 function handleSelectEmoji(emoji: EmojiExt) {
@@ -42,9 +45,9 @@ function handleImageCoverChange() {
     </div>
   </div>
   <div class="text-4xl my-10">
-    <div class="mb-8" v-if="!!authStore.user">
+    <div class="mb-8 space-x-3" v-if="!!authStore.user">
       <template v-if="!req.emoji">
-        <v-btn variant="tonal" class="mr-3" @click="showEmojiPicker = true"
+        <v-btn variant="tonal" @click="showEmojiPicker = true"
           ><span class="i-mdi:emoticon-outline mr-3"></span> Emoji</v-btn
         >
       </template>
@@ -53,6 +56,14 @@ function handleImageCoverChange() {
           ><span class="i-mdi:image-outline mr-3"></span> Cover</v-btn
         >
       </template>
+
+      <v-btn
+        variant="tonal"
+        @click="showTagsDialog = true"
+        :color="req.tags.length ? 'primary' : undefined"
+        ><span class="i-mdi:tag-outline mr-3"></span>
+        <span v-if="req.tags.length">{{ req.tags.length }}</span> Tags</v-btn
+      >
     </div>
     <div class="mb-3 text-8xl group flex items-end" v-if="req.emoji">
       <span
@@ -113,11 +124,59 @@ function handleImageCoverChange() {
           placeholder="http://image/path/to/url"
           color="primary"
           v-model="coverImageUrl"
+          :rules="[
+            (v: string) => {
+              if (!v.startsWith('http://') && !v.startsWith('https://')) return 'Kolom harus berisi link gambar yang valid';
+
+              return true;
+            }
+          ]"
         ></v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-btn variant="text" @click="handleImageCoverChange" color="primary"
           >Simpan</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog max-width="600px" v-model="showTagsDialog">
+    <v-card>
+      <v-card-title>Berikan Tags</v-card-title>
+      <v-card-text>
+        <v-combobox
+          v-model="req.tags"
+          v-model:search="searchTag"
+          :hide-no-data="false"
+          :items="[]"
+          multiple
+          chips
+          variant="outlined"
+          density="default"
+          color="primary"
+          placeholder="Masukkan tags tulisanmu"
+        >
+          <template v-slot:no-data>
+            <v-list-item>
+              <v-list-item-title>
+                <div class="text-sm">
+                  Klik enter untuk menambahkan tag "<strong>{{
+                    searchTag
+                  }}</strong
+                  >".
+                </div>
+              </v-list-item-title>
+            </v-list-item>
+          </template>
+          <template #chip="{ item }">
+            <v-chip color="primary">{{ item.title }}</v-chip>
+          </template>
+        </v-combobox>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn variant="text" color="primary" @click="showTagsDialog = false"
+          >TUTUP</v-btn
         >
       </v-card-actions>
     </v-card>

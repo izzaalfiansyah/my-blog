@@ -30,6 +30,7 @@ onResult(({ data }) => {
     req.content = post.content;
     req.coverImageUrl = post.coverImageUrl;
     req.emoji = post.emoji;
+    req.tags = post.tags || [];
 
     createdAt.value = post.createdAt;
     createdPlace.value = post.createdPlace;
@@ -49,6 +50,18 @@ onResult(({ data }) => {
       <template v-if="updatedAt">
         Terakhir diubah: {{ dateFormat(updatedAt) }}
       </template>
+      <div v-if="req.tags" class="mt-5 space-x-2">
+        <template v-for="tag in req.tags">
+          <v-chip
+            color="warning"
+            role="router-link"
+            :to="'/tags/' + tag"
+            class="!rounded"
+            density="compact"
+            >#{{ tag }}</v-chip
+          >
+        </template>
+      </div>
     </div>
   </template>
   <template v-else>

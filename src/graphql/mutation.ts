@@ -1,4 +1,13 @@
 import { useLoginMutation } from "./mutation/login";
-import { useCreatePostMutation, useUpdatePostMutation } from "./mutation/post";
+import {
+  useCreatePostMutation,
+  useDeletePostMutation,
+  useUpdatePostMutation,
+} from "./mutation/post";
 
-export { useLoginMutation, useCreatePostMutation, useUpdatePostMutation };
+export {
+  useLoginMutation,
+  useCreatePostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+};
