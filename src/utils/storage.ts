@@ -5,7 +5,7 @@ export class Storage {
     localStorage.setItem(TOKEN, val);
   }
 
-  static async getToken() {
+  static getToken() {
     return localStorage.getItem(TOKEN);
   }
 
