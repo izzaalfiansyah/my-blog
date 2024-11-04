@@ -13,7 +13,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <template v-if="isReset">
+  <div v-if="isReset" class="min-h-70vh">
     <PostForm></PostForm>
-  </template>
+  </div>
 </template>

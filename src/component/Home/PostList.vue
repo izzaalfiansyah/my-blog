@@ -20,9 +20,6 @@ onMounted(async () => {
 
 <template>
   <div class="space-y-3">
-    <template v-if="loading">
-      <div class="text-center">Memuat...</div>
-    </template>
     <router-link
       class="no-underline relative flex lg:flex-row flex-col justify-between p-2 rounded hover:bg-gray-50 text-gray-700"
       v-for="post in posts"
@@ -38,5 +35,8 @@ onMounted(async () => {
         {{ dateFormat(post.createdAt) }}, {{ post.createdPlace }}
       </div>
     </router-link>
+    <template v-if="loading">
+      <div class="text-center py-3">Memuat...</div>
+    </template>
   </div>
 </template>

@@ -1,3 +1,4 @@
 {
-  "GRAPHQL_HTTP_SERVER": "http://localhost:8000/graphql"
+  "GRAPHQL_HTTP_DEV_SERVER": "http://localhost:8000/graphql",
+  "GRAPHQL_HTTP_SERVER": "https://my-blog-graphql-izzaalfiansyah.vercel.app/graphql"
 }

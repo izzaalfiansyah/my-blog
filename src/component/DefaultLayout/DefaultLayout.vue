@@ -19,6 +19,17 @@ const isLoginRoute = () => {
       <NavBar></NavBar>
       <v-container>
         <router-view></router-view>
+        <v-divider></v-divider>
+        <div class="text-sm my-5 text-gray-500 lg:!text-right !text-center">
+          &copy;
+          <a
+            href="https://izzaalfiansyah.vercel.app"
+            class="no-underline text-gray-500"
+            target="_blank"
+            >Muhammad Izza Alfiansyah</a
+          >
+          2024
+        </div>
       </v-container>
     </template>
     <template v-else>
