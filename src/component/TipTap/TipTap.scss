@@ -1,0 +1,30 @@
+.ProseMirror {
+  &:focus {
+    outline: none;
+  }
+
+  & > *:not(:first-child) {
+    margin-top: 12px;
+  }
+
+  ul,
+  ol {
+    padding-left: 20px;
+  }
+
+  *.is-empty::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  pre {
+    background: black;
+    color: #dddddd;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 0.8rem;
+  }
+}
