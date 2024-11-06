@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.v3-emoji-picker {
+  .v3-footer {
+    display: none;
+  }
+
+  .v3-emojis {
+    font-size: xx-large;
+  }
+
+  .v3-search input {
+    outline: none;
+    width: 100%;
+    background: #eeeeee;
+    padding: 7px 10px;
+    border-radius: 5px;
+    margin-bottom: 14px;
+  }
+}

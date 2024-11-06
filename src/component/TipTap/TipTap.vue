@@ -49,15 +49,14 @@ onMounted(() => {
     editable: !!authStore.user,
   });
 
-  setTimeout(() => {
-    editor.value?.commands.focus();
-  }, 500);
+  editor.value?.commands.focus();
 });
 
 watch(
   () => authStore.user,
   (val) => {
     editor.value?.setEditable(!!val);
+    editor.value?.commands.focus();
   }
 );
 

@@ -35,7 +35,7 @@ async function handleUpdatePost() {
 
 <template>
   <div
-    class="sticky top-0 left-0 z-50 w-full border-b-solid border-1 border-gray-200 bg-white"
+    class="sticky top-0 left-0 z-10000 w-full border-b-solid border-1 border-gray-200 bg-white"
   >
     <v-container class="flex items-center justify-between h-18">
       <div class="text-xl font-semibold flex items-center gap-x-2">

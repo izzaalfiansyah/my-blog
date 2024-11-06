@@ -1,5 +1,5 @@
 import { createApp, h, provide } from "vue";
-import "./main.css";
+import "./main.scss";
 import "vuetify/styles/main.css";
 import "virtual:uno.css";
 import App from "./App.vue";
