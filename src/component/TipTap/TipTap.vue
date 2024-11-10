@@ -11,8 +11,7 @@ import {
 import { NodeSelection } from "@tiptap/pm/state";
 import { useAuthStore } from "../../stores/auth-store";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
-import Dropcursor from "@tiptap/extension-dropcursor";
-import { getMenuCoordinates, getTopNode } from "./utils";
+import { getMenuCoordinates, getSelectedNode } from "./utils";
 import SlashMenu from "./component/SlashMenu.vue";
 
 const props = defineProps(["modelValue"]);
@@ -21,10 +20,13 @@ const emit = defineEmits(["update:modelValue"]);
 const authStore = useAuthStore();
 
 const editor = ref<Editor>();
+const draggedNode = ref<Node | null>();
 
 function shouldShowSlashMenu() {
-  const currentTopNode = getTopNode(editor.value!);
-  const text = currentTopNode.textContent;
+  const { state, view } = editor.value!;
+  const pos = state.selection.$anchor.before(1);
+  const node = view.nodeDOM(pos);
+  const text = node?.textContent;
 
   if (text && text.length <= 1) {
     return text[0] == "/";
@@ -41,9 +43,19 @@ function handleDragStart(e: DragEvent) {
     state.tr.setSelection(NodeSelection.create(state.doc, anchor.before(1)))
   );
 
-  const selectedNode = document.querySelector(".ProseMirror-selectednode")!;
-  e.dataTransfer?.setData("text/html", selectedNode.outerHTML!);
-  e.dataTransfer?.setDragImage(selectedNode, 0, 0);
+  const node = getSelectedNode();
+  draggedNode.value = view.nodeDOM(anchor.before(1));
+
+  if (!!e.dataTransfer) {
+    e.dataTransfer.clearData();
+    e.dataTransfer.setData("text/html", node.outerHTML!);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setDragImage(node, 0, 0);
+  }
+}
+
+function handleDragEnd(e: DragEvent) {
+  e.preventDefault();
 }
 
 onMounted(() => {
@@ -51,7 +63,7 @@ onMounted(() => {
     extensions: [
       StarterKit,
       FloatingMenu,
-      Dropcursor,
+      // Dropcursor,
       Placeholder.configure({
         placeholder: "Ketikkan sesuatu atau '/' untuk membuat perintah...",
       }),
@@ -93,6 +105,7 @@ onBeforeUnmount(() => {
         class="cursor-grab bg-gray-100 rounded py-1 px-0.5"
         draggable="true"
         @dragstart="handleDragStart"
+        @dragend="handleDragEnd"
       >
         <div class="i-mdi:drag text-black size-4"></div>
       </div>
