@@ -20,7 +20,6 @@ const isLoaded = ref(false);
 const { onResult } = usePostBySlugQuery({ slug });
 
 onResult(({ data }) => {
-  console.log(data);
   if (data?.postBySlug) {
     const post: Post = data.postBySlug;
 

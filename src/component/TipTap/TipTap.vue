@@ -8,6 +8,7 @@ import {
   FloatingMenu as FloatingMenuContent,
   Editor,
 } from "@tiptap/vue-3";
+import { NodeSelection } from "@tiptap/pm/state";
 import { useAuthStore } from "../../stores/auth-store";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Dropcursor from "@tiptap/extension-dropcursor";
@@ -30,6 +31,19 @@ function shouldShowSlashMenu() {
   }
 
   return false;
+}
+
+function handleDragStart(e: DragEvent) {
+  const { state, view } = editor.value!;
+  const anchor = state.selection.$anchor;
+
+  view.dispatch(
+    state.tr.setSelection(NodeSelection.create(state.doc, anchor.before(1)))
+  );
+
+  const selectedNode = document.querySelector(".ProseMirror-selectednode")!;
+  e.dataTransfer?.setData("text/html", selectedNode.outerHTML!);
+  e.dataTransfer?.setDragImage(selectedNode, 0, 0);
 }
 
 onMounted(() => {
@@ -75,7 +89,11 @@ onBeforeUnmount(() => {
         getReferenceClientRect: () => getMenuCoordinates(editor!),
       }"
     >
-      <div class="cursor-grab bg-gray-100 rounded py-1 px-0.5">
+      <div
+        class="cursor-grab bg-gray-100 rounded py-1 px-0.5"
+        draggable="true"
+        @dragstart="handleDragStart"
+      >
         <div class="i-mdi:drag text-black size-4"></div>
       </div>
     </floating-menu-content>

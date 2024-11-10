@@ -66,6 +66,18 @@ function handleCommand(command: () => void) {
     class="overflow-y-auto"
     elevation="1"
   >
+    <!-- <v-list v-for="item in items">
+      <template #prepend>
+        <div
+          class="w-12 h-12 border-solid border-1 border-gray-200 rounded flex items-center justify-center"
+        >
+          <div :class="'text-gray-500 size-8 ' + item.icon"></div>
+        </div>
+      </template>
+      <v-list-item @click="handleCommand(item.command)">{{
+        item.text
+      }}</v-list-item>
+    </v-list> -->
     <div class="space-y-1 p-2">
       <template v-for="item in items">
         <div
