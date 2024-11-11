@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
   <template v-if="!!editor">
     <floating-menu-content
       :editor="editor"
-      :should-show="() => true"
+      :should-show="() => editor?.isEditable || false"
       :tippy-options="{
         placement: 'left-start',
         getReferenceClientRect: () => getMenuCoordinates(editor!),
